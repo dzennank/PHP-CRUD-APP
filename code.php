@@ -3,6 +3,26 @@ session_start();
     require 'dbcon.php';
 
 
+    if(isset($_POST['login'])) {
+    
+    $email = mysqli_real_escape_string($con, $_POST['email']);
+    $name = mysqli_real_escape_string($con, $_POST['name']);
+
+        $query = "SELECT * FROM students WHERE email = '$email' && name='$name'";
+        $query_run = mysqli_query($con, $query);
+        if(mysqli_num_rows($query_run)) {
+            header("Location: index.php");
+            exit(0);
+        }
+        else
+        {
+            exit('This username doesnt exists');
+            
+        }
+
+    }
+
+
     if(isset($_POST['update_student']))
 {
     $student_id = mysqli_real_escape_string($con, $_POST['student_id']);
